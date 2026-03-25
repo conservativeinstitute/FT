@@ -1,0 +1,12 @@
+# ads.txt — Authorized Digital Sellers
+# The Federalist Times / Conservative Institute, LLC
+# https://federalisttimes.com
+#
+# Replace the placeholder entries below with your actual ad partner details.
+# Format: <domain>, <publisher-id>, <relationship>, <certification-authority-id>
+#
+# Example:
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+# appnexus.com, 12345, DIRECT
+#
+# Add your authorized sellers below this line:
