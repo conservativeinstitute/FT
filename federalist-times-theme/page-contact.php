@@ -81,9 +81,7 @@ echo '<script type="application/ld+json">' . wp_json_encode( $faq_schema, JSON_U
 		</div>
 		<div>
 			<h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:1.2rem;">Send a Message</h3>
-			<!-- Contact Form 7 shortcode placeholder -->
-			<p style="font-size:.85rem;color:var(--ink-3);margin-bottom:1rem;">This form requires the Contact Form 7 plugin. Place your shortcode below:</p>
-			<?php echo do_shortcode( '[contact-form-7 id="contact-form" title="Contact Form"]' ); ?>
+			<?php echo do_shortcode( '[contact-form-7 id="29" title="Contact Form"]' ); ?>
 		</div>
 	</div>
 

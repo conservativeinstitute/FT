@@ -82,7 +82,7 @@ while ( have_posts() ) : the_post();
 	<!-- Author bio -->
 	<div style="margin-top:2.5rem;padding-top:2rem;border-top:2px solid var(--ink);">
 		<div style="display:flex;gap:1.2rem;align-items:flex-start;">
-			<?php echo get_avatar( get_the_author_meta( 'ID' ), 80, '', '', array( 'class' => 'masthead-card__headshot', 'style' => 'width:80px;height:80px;border-radius:0;flex-shrink:0;', 'loading' => 'lazy' ) ); ?>
+			<?php echo get_avatar( get_the_author_meta( 'ID' ), 80, '', '', array( 'class' => 'author-bio__photo', 'loading' => 'lazy' ) ); ?>
 			<div>
 				<p class="masthead-card__name"><a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>"><?php the_author(); ?></a></p>
 				<p class="masthead-card__title"><?php echo esc_html( get_the_author_meta( 'description' ) ? '' : 'Staff Writer' ); ?></p>
