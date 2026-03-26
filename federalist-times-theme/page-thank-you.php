@@ -15,7 +15,7 @@ get_header();
 		<p class="lead-p">You're now part of a community that values truth, accountability, and independent journalism.</p>
 	</div>
 
-	<p>Your subscription to The Federalist Times is confirmed. You'll receive our Morning Brief every weekday at 6 AM ET — the news that matters, before the spin begins.</p>
+	<p>Your subscription to The Federalist Times is confirmed. You'll receive our daily newsletter — the news that matters, before the spin begins.</p>
 
 	<div style="margin:2.5rem 0;padding:1.8rem;background:var(--bg-warm);border-left:3px solid var(--gold);">
 		<p style="font-family:'Lato',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;">What to expect</p>

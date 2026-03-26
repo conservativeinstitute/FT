@@ -81,6 +81,14 @@
 
 	if (openSubBtn) openSubBtn.addEventListener('click', openSubscribe);
 	if (closeSubBtn) closeSubBtn.addEventListener('click', closeSubscribe);
+
+	// Allow any element with .sub-open-btn to open the subscribe modal
+	document.querySelectorAll('.sub-open-btn').forEach(function (btn) {
+		btn.addEventListener('click', function (e) {
+			e.preventDefault();
+			openSubscribe();
+		});
+	});
 	if (subOverlay) {
 		subOverlay.addEventListener('click', function (e) {
 			if (e.target === subOverlay) closeSubscribe();

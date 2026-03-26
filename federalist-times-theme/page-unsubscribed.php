@@ -17,7 +17,7 @@ get_header();
 
 	<p>You will no longer receive newsletters, breaking news alerts, or promotional emails from The Federalist Times. Please allow up to 24 hours for all communications to fully stop.</p>
 
-	<p>If you unsubscribed by mistake, you can <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color:var(--gold);text-decoration:underline;">return to the homepage</a> and resubscribe using any of our newsletter forms.</p>
+	<p>If you unsubscribed by mistake, you can <a href="#" class="sub-open-btn" style="color:var(--gold);text-decoration:underline;cursor:pointer;">subscribe again</a> at any time.</p>
 
 	<div style="margin:2.5rem 0;padding:1.8rem;background:var(--bg-warm);border-left:3px solid var(--gold);">
 		<p style="font-family:'Lato',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;">Before you go</p>
