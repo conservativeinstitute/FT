@@ -41,6 +41,41 @@ add_action( 'wp_ajax_ft_capture_email', 'ft_capture_email_handler' );
 add_action( 'wp_ajax_nopriv_ft_capture_email', 'ft_capture_email_handler' );
 
 /**
+ * AJAX handler for email unsubscribe
+ */
+function ft_unsubscribe_email_handler() {
+	check_ajax_referer( 'ft_capture_email', 'nonce' );
+
+	$email = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+
+	if ( ! is_email( $email ) ) {
+		wp_send_json_error( 'Please enter a valid email address.' );
+	}
+
+	$subscribers = get_option( 'ft_email_subscribers', array() );
+	$found       = false;
+
+	foreach ( $subscribers as $key => $sub ) {
+		if ( strtolower( $sub['email'] ) === strtolower( $email ) ) {
+			unset( $subscribers[ $key ] );
+			$found = true;
+			break;
+		}
+	}
+
+	if ( ! $found ) {
+		wp_send_json_error( 'That email address was not found in our subscriber list.' );
+	}
+
+	// Re-index array and save
+	update_option( 'ft_email_subscribers', array_values( $subscribers ) );
+
+	wp_send_json_success( 'You have been successfully unsubscribed.' );
+}
+add_action( 'wp_ajax_ft_unsubscribe_email', 'ft_unsubscribe_email_handler' );
+add_action( 'wp_ajax_nopriv_ft_unsubscribe_email', 'ft_unsubscribe_email_handler' );
+
+/**
  * Admin page under Tools to view captured emails
  */
 function ft_email_admin_menu() {

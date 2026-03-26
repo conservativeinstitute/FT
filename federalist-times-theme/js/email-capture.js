@@ -102,4 +102,64 @@
 		form.addEventListener('submit', handleSubmit);
 	});
 
+	// Unsubscribe form handler
+	var unsubForm = document.querySelector('.ft-unsub-form');
+	if (unsubForm) {
+		unsubForm.addEventListener('submit', function (e) {
+			e.preventDefault();
+			var form = e.target;
+
+			if (form.dataset.submitting === 'true') return;
+
+			var emailInput = form.querySelector('input[type="email"]');
+			if (!emailInput) return;
+
+			var email = emailInput.value.trim();
+
+			if (!email || !EMAIL_REGEX.test(email)) {
+				showMsg(form, 'Please enter a valid email address.', true);
+				emailInput.focus();
+				return;
+			}
+
+			form.dataset.submitting = 'true';
+			var submitBtn = form.querySelector('button[type="submit"]');
+			var origText = submitBtn ? submitBtn.textContent : '';
+			if (submitBtn) submitBtn.textContent = 'Processing...';
+
+			var data = new FormData();
+			data.append('action', 'ft_unsubscribe_email');
+			data.append('nonce', ftAjax.nonce);
+			data.append('email', email);
+
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', ftAjax.url, true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState !== 4) return;
+				form.dataset.submitting = 'false';
+
+				if (xhr.status === 200) {
+					try {
+						var resp = JSON.parse(xhr.responseText);
+						if (resp.success) {
+							showMsg(form, resp.data || 'You have been successfully unsubscribed.', false);
+							emailInput.value = '';
+							if (submitBtn) submitBtn.textContent = 'Unsubscribed';
+						} else {
+							showMsg(form, resp.data || 'That email was not found in our list.', true);
+							if (submitBtn) submitBtn.textContent = origText;
+						}
+					} catch (err) {
+						showMsg(form, 'Something went wrong. Please try again.', true);
+						if (submitBtn) submitBtn.textContent = origText;
+					}
+				} else {
+					showMsg(form, 'Network error. Please try again.', true);
+					if (submitBtn) submitBtn.textContent = origText;
+				}
+			};
+			xhr.send(data);
+		});
+	}
+
 })();
