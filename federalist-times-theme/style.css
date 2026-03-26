@@ -137,7 +137,7 @@ img { max-width: 100%; height: auto; display: block; }
 .nav__hamburger { display: none; }
 .nav ul {
   list-style: none; display: flex;
-  justify-content: center; flex-wrap: wrap;
+  justify-content: space-around; flex-wrap: wrap;
 }
 .nav li { position: relative; }
 .nav li a {
