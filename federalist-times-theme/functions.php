@@ -146,10 +146,19 @@ add_action( 'wp_head', function () {
 	}
 	$schema = array(
 		'@context'     => 'https://schema.org',
-		'@type'        => 'Organization',
+		'@type'        => array( 'Organization', 'NewsMediaOrganization' ),
 		'name'         => 'The Federalist Times',
+		'alternateName' => 'Federalist Times',
 		'url'          => 'https://federalisttimes.com',
 		'logo'         => $logo_url ?: 'https://federalisttimes.com/wp-content/themes/federalist-times-theme/img/logo.png',
+		'description'  => 'Independent, subscriber-supported journalism covering politics, economics, national security, crime, and health.',
+		'foundingDate' => '2026',
+		'sameAs'       => array(
+			'https://x.com/federalisttimes',
+			'https://truthsocial.com/@federalisttimes',
+			'https://www.youtube.com/@federalisttimes',
+			'https://rumble.com/federalisttimes',
+		),
 		'contactPoint' => array(
 			'@type'       => 'ContactPoint',
 			'email'       => 'contact@federalisttimes.com',
@@ -163,6 +172,8 @@ add_action( 'wp_head', function () {
 			'postalCode'      => '76262',
 			'addressCountry'  => 'US',
 		),
+		'publishingPrinciples' => 'https://federalisttimes.com/editorial-policy/',
+		'correctionsPolicy'    => 'https://federalisttimes.com/corrections/',
 	);
 	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ) . '</script>' . "\n";
 }, 5 );

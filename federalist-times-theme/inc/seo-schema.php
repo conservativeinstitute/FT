@@ -1,9 +1,36 @@
 <?php
 /**
- * SEO Schema — Article and FAQPage JSON-LD
+ * SEO Schema — Article, WebSite, and BreadcrumbList JSON-LD
  *
  * @package FederalistTimes
  */
+
+/**
+ * WebSite schema with SearchAction (enables Google sitelinks search box)
+ */
+add_action( 'wp_head', function () {
+	if ( ! is_front_page() ) {
+		return;
+	}
+
+	$schema = array(
+		'@context'        => 'https://schema.org',
+		'@type'           => 'WebSite',
+		'name'            => 'The Federalist Times',
+		'alternateName'   => 'Federalist Times',
+		'url'             => home_url( '/' ),
+		'potentialAction' => array(
+			'@type'       => 'SearchAction',
+			'target'      => array(
+				'@type'       => 'EntryPoint',
+				'urlTemplate' => home_url( '/?s={search_term_string}' ),
+			),
+			'query-input' => 'required name=search_term_string',
+		),
+	);
+
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ) . '</script>' . "\n";
+}, 4 );
 
 /**
  * Article schema on single posts
