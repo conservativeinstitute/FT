@@ -15,6 +15,8 @@ get_header();
 		<p class="lead-p">The standards that govern how we report, what we publish, and the principles we refuse to compromise — regardless of audience, advertiser, or political pressure.</p>
 	</div>
 
+	<p><strong>Last Updated:</strong> April 1, 2026</p>
+
 	<h2>Mission and Independence</h2>
 	<p>The Federalist Times is an editorially independent publication. No advertiser, political organization, donor, or government entity has any influence over our editorial decisions. We exist to inform readers, not to advance any external agenda.</p>
 

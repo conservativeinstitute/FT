@@ -87,6 +87,7 @@ $secondary = array_slice( $posts_arr, 1 );
 					<input type="email" class="rn-optin__input" id="rn-email" placeholder="Your email address" required>
 					<button type="submit" class="rn-optin__btn">Subscribe</button>
 				</form>
+				<p style="font-size:.65rem;color:var(--ink-3);margin-top:.4rem;">By subscribing, you agree to receive emails from our brand family. <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>" style="color:var(--gold);text-decoration:underline;">Privacy Policy</a>.</p>
 			</div>
 
 		</div>

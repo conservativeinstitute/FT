@@ -57,7 +57,7 @@ foreach ( $all_cats as $cat ) {
 				<input type="email" class="subscribe-box__input" id="hero-email" placeholder="Your email address" required>
 				<button type="submit" class="subscribe-box__go">Subscribe</button>
 			</form>
-			<p class="subscribe-box__fine">Free. No spam. Unsubscribe anytime.</p>
+			<p class="subscribe-box__fine">Free. No spam. Unsubscribe anytime. By subscribing, you agree to receive emails from our brand family. See <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>" style="color:var(--gold);text-decoration:underline;">Privacy Policy</a>.</p>
 		</div>
 	</div>
 

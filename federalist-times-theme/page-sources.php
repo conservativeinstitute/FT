@@ -15,6 +15,8 @@ get_header();
 		<p class="lead-p">Transparency in sourcing is fundamental to trust. Here we document the primary data sources and reference materials used in our reporting.</p>
 	</div>
 
+	<p><strong>Last Updated:</strong> April 1, 2026</p>
+
 	<h2>Government and Official Sources</h2>
 	<p>We rely on primary government data for our reporting on politics, economics, and policy:</p>
 	<ul style="margin:1rem 0 1.5rem 1.5rem;color:var(--ink-2);line-height:2;">

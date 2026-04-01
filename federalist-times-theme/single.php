@@ -62,6 +62,7 @@ while ( have_posts() ) : the_post();
 			<input type="email" class="art-email__input" id="art-email-input" placeholder="Your email address" required>
 			<button type="submit" class="art-email__submit">Subscribe</button>
 		</form>
+		<p style="font-size:.7rem;color:var(--ink-3);margin-top:.5rem;">By subscribing, you agree to receive emails from our brand family. See <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>" style="color:var(--gold);text-decoration:underline;">Privacy Policy</a>.</p>
 	</div>
 
 	<!-- Share buttons — bottom -->

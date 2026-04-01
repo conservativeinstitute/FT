@@ -36,7 +36,7 @@
 				<input type="email" class="sub-modal__field" id="sub-email" placeholder="Your email address" required>
 				<button type="submit" class="sub-modal__submit">Subscribe — It's Free</button>
 			</form>
-			<p class="sub-modal__fine">No spam. No ads. Unsubscribe anytime.</p>
+			<p class="sub-modal__fine">No spam. Unsubscribe anytime. By subscribing, you agree to receive emails from our brand family. See <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>" style="color:var(--gold);text-decoration:underline;">Privacy Policy</a>.</p>
 		</div>
 		<div class="sub-modal__success" id="subSuccess">
 			<h3>You're in.</h3>

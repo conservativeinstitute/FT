@@ -15,6 +15,8 @@ get_header();
 		<p class="lead-p">Getting it right matters more than getting it first. When we make errors — and we will, because journalism is a human enterprise — we fix them promptly, transparently, and without equivocation.</p>
 	</div>
 
+	<p><strong>Last Updated:</strong> April 1, 2026</p>
+
 	<h2>How to Report an Error</h2>
 	<p>If you believe we have published an error, please contact us at <a href="mailto:corrections@federalisttimes.com" style="color:var(--gold);">corrections@federalisttimes.com</a> or use our <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="color:var(--gold);text-decoration:underline;text-underline-offset:2px;">contact form</a>. Please include:</p>
 	<ul style="margin:1rem 0 1.5rem 1.5rem;color:var(--ink-2);">
