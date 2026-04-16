@@ -142,6 +142,25 @@
 		}
 	});
 
+	/* ── Auto-classify article links as internal/external ── */
+	var artBody = document.querySelector('.art-body');
+	if (artBody) {
+		var siteHost = window.location.hostname;
+		artBody.querySelectorAll('a[href]').forEach(function (a) {
+			try {
+				var url = new URL(a.href);
+				if (url.hostname === siteHost || url.hostname === 'www.' + siteHost) {
+					a.classList.add('int');
+				} else {
+					a.classList.add('ext');
+				}
+			} catch (e) {
+				// relative URLs are internal
+				a.classList.add('int');
+			}
+		});
+	}
+
 	/* ── Lazy loading observer ── */
 	if ('IntersectionObserver' in window) {
 		var lazyImages = document.querySelectorAll('img[data-src]');

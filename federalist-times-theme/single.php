@@ -92,6 +92,9 @@ while ( have_posts() ) : the_post();
 		</div>
 	</div>
 
+	<!-- Ad Inserter Pro — Block 16 -->
+	<?php echo do_shortcode( '[adinserter block="16"]' ); ?>
+
 	<!-- Related articles -->
 	<?php
 	$related_query = new WP_Query( array(
