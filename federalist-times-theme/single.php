@@ -65,6 +65,9 @@ while ( have_posts() ) : the_post();
 		<p style="font-size:.7rem;color:var(--ink-3);margin-top:.5rem;">By subscribing, you agree to receive emails from our brand family. See <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>" style="color:var(--gold);text-decoration:underline;">Privacy Policy</a>.</p>
 	</div>
 
+	<!-- Ad Inserter Pro — Block 16 -->
+	<?php echo do_shortcode( '[adinserter block="16"]' ); ?>
+
 	<!-- Share buttons — bottom -->
 	<?php get_template_part( 'template-parts/share-buttons', null, array( 'position' => 'bottom' ) ); ?>
 
@@ -91,9 +94,6 @@ while ( have_posts() ) : the_post();
 			</div>
 		</div>
 	</div>
-
-	<!-- Ad Inserter Pro — Block 16 -->
-	<?php echo do_shortcode( '[adinserter block="16"]' ); ?>
 
 	<!-- Related articles -->
 	<?php
