@@ -100,17 +100,19 @@
 	var rnShown = false;
 	var rnOpenTrigger = null; // "scroll" | "exit_intent"
 
-	// GTM / GA4 dataLayer helper
+	// GA4 / GTM event helper — pushes to dataLayer (for future GTM) and
+	// calls gtag() directly so Site Kit's gtag.js forwards events to GA4 today.
 	window.dataLayer = window.dataLayer || [];
 	function rnTrack(eventName, params) {
+		var payload = params ? Object.assign({}, params) : {};
 		try {
-			var payload = { event: eventName };
-			if (params) {
-				for (var k in params) {
-					if (params.hasOwnProperty(k)) payload[k] = params[k];
-				}
+			var dlPayload = Object.assign({ event: eventName }, payload);
+			window.dataLayer.push(dlPayload);
+		} catch (err) { /* noop */ }
+		try {
+			if (typeof window.gtag === 'function') {
+				window.gtag('event', eventName, payload);
 			}
-			window.dataLayer.push(payload);
 		} catch (err) { /* noop */ }
 	}
 
