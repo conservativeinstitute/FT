@@ -98,46 +98,100 @@
 	/* ── Read Next popup (exit intent / scroll depth) ── */
 	var rnOverlay = document.getElementById('rnOverlay');
 	var rnShown = false;
+	var rnOpenTrigger = null; // "scroll" | "exit_intent"
 
-	function openRN() {
-		if (rnShown || !rnOverlay) return;
-		rnShown = true;
-		rnOverlay.classList.add('open');
-		document.body.style.overflow = 'hidden';
+	// GTM / GA4 dataLayer helper
+	window.dataLayer = window.dataLayer || [];
+	function rnTrack(eventName, params) {
+		try {
+			var payload = { event: eventName };
+			if (params) {
+				for (var k in params) {
+					if (params.hasOwnProperty(k)) payload[k] = params[k];
+				}
+			}
+			window.dataLayer.push(payload);
+		} catch (err) { /* noop */ }
 	}
 
-	function closeRN() {
+	// 24-hour cross-page cooldown via localStorage
+	var RN_COOLDOWN_KEY = 'ft_rn_last_shown';
+	var RN_COOLDOWN_MS = 24 * 60 * 60 * 1000;
+	try {
+		var last = parseInt(localStorage.getItem(RN_COOLDOWN_KEY) || '0', 10);
+		if (last && (Date.now() - last) < RN_COOLDOWN_MS) {
+			rnShown = true; // suppress for this page view
+		}
+	} catch (err) { /* localStorage unavailable — fall through */ }
+
+	function openRN(triggerType) {
+		if (rnShown || !rnOverlay) return;
+		rnShown = true;
+		rnOpenTrigger = triggerType || 'unknown';
+		rnOverlay.classList.add('open');
+		document.body.style.overflow = 'hidden';
+		try { localStorage.setItem(RN_COOLDOWN_KEY, String(Date.now())); } catch (err) { /* noop */ }
+		rnTrack('ft_popup_opened', { popup_name: 'read_next', trigger: rnOpenTrigger });
+	}
+
+	function closeRN(method) {
 		if (!rnOverlay) return;
 		rnOverlay.classList.remove('open');
 		document.body.style.overflow = '';
+		rnTrack('ft_popup_dismissed', {
+			popup_name: 'read_next',
+			dismiss_method: method || 'unknown',
+			trigger: rnOpenTrigger
+		});
 	}
 
 	// Close button
 	var rnClose = rnOverlay ? rnOverlay.querySelector('.rn-modal__close') : null;
-	if (rnClose) rnClose.addEventListener('click', closeRN);
+	if (rnClose) rnClose.addEventListener('click', function () { closeRN('close_button'); });
 	// Backdrop close
 	var rnBg = rnOverlay ? rnOverlay.querySelector('.rn-overlay__bg') : null;
-	if (rnBg) rnBg.addEventListener('click', closeRN);
+	if (rnBg) rnBg.addEventListener('click', function () { closeRN('backdrop'); });
 
-	// Scroll depth trigger (85%)
+	// Recommendation click tracking
+	if (rnOverlay) {
+		var primaryCta = rnOverlay.querySelector('.rn-cta');
+		var primaryTitle = rnOverlay.querySelector('.rn-primary__title');
+		if (primaryCta) primaryCta.addEventListener('click', function () {
+			rnTrack('ft_popup_recommendation_clicked', { popup_name: 'read_next', position: 'primary_cta', destination: this.href, trigger: rnOpenTrigger });
+		});
+		if (primaryTitle) primaryTitle.addEventListener('click', function () {
+			rnTrack('ft_popup_recommendation_clicked', { popup_name: 'read_next', position: 'primary_title', destination: this.href, trigger: rnOpenTrigger });
+		});
+		rnOverlay.querySelectorAll('.rn-story').forEach(function (el, idx) {
+			el.addEventListener('click', function () {
+				rnTrack('ft_popup_recommendation_clicked', { popup_name: 'read_next', position: 'secondary_' + (idx + 1), destination: this.href, trigger: rnOpenTrigger });
+			});
+		});
+		var rnForm = rnOverlay.querySelector('form.ft-email-form');
+		if (rnForm) rnForm.addEventListener('submit', function () {
+			rnTrack('ft_popup_form_submitted', { popup_name: 'read_next', source: 'read-next-popup', trigger: rnOpenTrigger });
+		});
+	}
+
+	// Scroll depth trigger (85%) — passive for INP win on mobile
 	if (document.body.classList.contains('single-post')) {
 		window.addEventListener('scroll', function () {
 			if (rnShown) return;
 			var scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-			if (scrollPct > 0.85) openRN();
-		});
+			if (scrollPct > 0.85) openRN('scroll');
+		}, { passive: true });
 
 		// Exit intent (mouse leaves viewport top)
 		document.addEventListener('mouseout', function (e) {
 			if (rnShown) return;
-			if (e.clientY <= 0 && e.relatedTarget === null) openRN();
+			if (e.clientY <= 0 && e.relatedTarget === null) openRN('exit_intent');
 		});
 	}
 
 	// ESC key closes modals
 	document.addEventListener('keydown', function (e) {
 		if (e.key === 'Escape') {
-			closeRN();
+			if (rnOverlay && rnOverlay.classList.contains('open')) closeRN('escape');
 			closeSubscribe();
 		}
 	});
