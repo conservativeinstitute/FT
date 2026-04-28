@@ -58,6 +58,13 @@
 		data.append('nonce', ftAjax.nonce);
 		data.append('email', email);
 		data.append('source', form.dataset.source || 'unknown');
+		data.append('page_url', window.location.href);
+
+		var params = new URLSearchParams(window.location.search);
+		['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function (key) {
+			var value = params.get(key);
+			if (value) data.append(key, value);
+		});
 
 		var xhr = new XMLHttpRequest();
 		xhr.open('POST', ftAjax.url, true);
